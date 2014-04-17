@@ -1,44 +1,149 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<title>jQuery UI Droppable - Default functionality</title>
-	<link rel="stylesheet" href="css/smoothness/jquery-ui-1.10.4.custom.min.css">
-	<script src="js/jquery-1.10.2.js"></script>
-	<script src="js/jquery-ui-1.10.4.custom.min.js"></script>
-	<link rel="stylesheet" href="css/demos.css">
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<style>
-	#draggable { width: 100px; height: 100px; padding: 0.5em; float: left; margin: 10px 10px 10px 0; }
-	#droppable { width: 150px; height: 150px; padding: 0.5em; float: left; margin: 10px; }
-	</style>
-	<script>
-	$(function() {
-		$( "#draggable" ).draggable();
-		$( "#droppable" ).droppable({
-			drop: function( event, ui ) {
-				$( this )
-					.addClass( "ui-state-highlight" )
-					.find( "p" )
-						.html( "Dropped!" );
-			}
-		});
-	});
-	</script>
+    <meta charset="utf-8">
+    <title>jQuery UI Droppable - Default functionality</title>
+    <link rel="stylesheet" href="css/smoothness/jquery-ui-1.10.4.custom.min.css">
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/jquery-ui-1.10.4.custom.min.js"></script>
+    <link rel="stylesheet" href="css/demos.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        
+        .draggable1 {
+            width: 100px;
+            height: 100px;
+            padding: 0.5em;
+            float: left;
+           
+        }
+        .draggable2 {
+            width: 100px;
+            height: 100px;
+            padding: 0.5em;
+            float: left;
+            
+        }
+        #droppable1,
+        #droppable2 {
+            width: 150px;
+            height: 150px;
+            padding: 0.5em;
+            float: left;
+            margin: 10px;
+            border: 1px solid;
+        }
+    </style>
+    <script>
+        $(function () {
+            $("#draggable").draggable();
+            $("#droppable").droppable({
+                drop: function (event, ui) {
+                    $(this)
+                        .addClass("ui-state-highlight")
+                        .find("p")
+                        .html("Dropped!");
+                }
+            });
+            $("#droppable1").droppable({
+                accept: ".draggable1",
+                drop: function (event, ui) {
+                    $(this)
+                        .addClass("ui-state-highlight")
+                        .find("p")
+                        .html("Dropped!");
+                }
+            });
+            $("#droppable2").droppable({
+                accept: ".draggable2",
+                activeClass: "ui-state-hover",
+                hoverClass: "ui-state-active",
+                drop: function (event, ui) {
+                    $(this)
+                        .addClass("ui-state-highlight")
+                        .find("p")
+                        .html("Dropped!");
+                }
+            });
+
+            $(".draggable1").draggable({
+                revert: function (droppableObj) {
+                    //if false then no socket object drop occurred.
+                    if (droppableObj === false) {
+                        //revert the .myselector object by returning true
+                        $(this).css('background', 'red');
+                        alert('Not Dropped');
+                        return true;
+                    } else {
+                        //droppableObj was returned,
+                        //we can perform additional checks here if we like
+                        //alert(droppableObj.attr('id')); would work fine
+
+                        //return false so that the .myselector object does not revert
+                        return false;
+                    }
+                }
+            });
+
+            $(".draggable2").draggable({
+                revert: function (droppableObj) {
+                    //if false then no socket object drop occurred.
+                    if (droppableObj === false) {
+                        //revert the .myselector object by returning true
+                        $(this).css('background', 'red');
+                        alert('Not dropped');
+                        return true;
+                    } else {
+                        //droppableObj was returned,
+                        //we can perform additional checks here if we like
+                        //alert(droppableObj.attr('id')); would work fine
+
+                        //return false so that the .myselector object does not revert
+                        return false;
+                    }
+                }
+            });
+        });
+    </script>
 </head>
+
 <body>
 
-<div id="draggable" class="ui-widget-content">
-	<p>Drag me to my target</p>
-</div>
+    <div class="row">
 
-<div id="droppable" class="ui-widget-header">
-	<p>Drop here</p>
-</div>
+        <div class="col-md-9">
 
-<div class="demo-description">
-<p>Enable any DOM element to be droppable, a target for draggable elements.</p>
-</div>
-<script src="js/bootstrap.min.js"></script>
+            <div class="draggable1" class="ui-widget-content">
+            	<button type="button" class="btn btn-warning" >Default</button>
+            </div>
+            <div class="draggable2" class="ui-widget-content">
+               <button type="button" class="btn btn-success">Default</button>
+            </div>
+
+            <div class="panel panel-default">
+  				<div class="panel-body" id="droppable1" class="ui-widget-header">
+    				droppable1
+                <p>Drop me here</p>
+  				</div>
+			</div>
+			 <div class="panel panel-default">
+  				<div class="panel-body" id="droppable2" class="ui-widget-header">
+    				droppable2
+                <p>Drop me here</p>
+  				</div>
+			</div>
+
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <script src="js/bootstrap.min.js"></script>
 </body>
+
 </html>
